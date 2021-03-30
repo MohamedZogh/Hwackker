@@ -15,7 +15,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'profile_picture' => 'required',
+            'profile_picture' => 'required|mimes:jpg,png,gif,webp',
             'username' => 'required',
             'birth_date' => 'date|before:14 years ago',
             'email' => 'required',
