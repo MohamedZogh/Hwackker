@@ -19,7 +19,7 @@ class RegisterController extends Controller
             'username' => 'required|string|min:2|max:12',
             'birth_date' => 'date|before:14 years ago',
             'email' => 'required',
-            'country' => 'required',
+            'country' => 'required|string',
             'facebook_url' => 'required',
             'twitter_url' => 'required',
             'password' => 'required',
