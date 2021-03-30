@@ -15,7 +15,15 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            // @TODO: Validate the request
+            'profile_picture' => 'required',
+            'username' => 'required',
+            'birth_date' => '',
+            'email' => 'required',
+            'country' => 'required',
+            'facebook_url' => 'required',
+            'twitter_url' => 'required',
+            'password' => 'required',
+            'password_confirmation' => 'required',
         ]);
 
         $user = User::forceCreate($request->except('_token', 'password_confirmation'));
