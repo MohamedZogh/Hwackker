@@ -17,7 +17,7 @@ class CreateHwacksTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('image')->nullable();
-            $table->string('content');
+            $table->text('content');
             $table->boolean('private')->default(false);
             $table->timestamps();
         });
