@@ -16,7 +16,7 @@ class RegisterController extends Controller
     {
         $request->validate([
             'profile_picture' => 'required|mimes:jpg,png,gif,webp',
-            'username' => 'required',
+            'username' => 'required|string|min:2|max:12',
             'birth_date' => 'date|before:14 years ago',
             'email' => 'required',
             'country' => 'required',
