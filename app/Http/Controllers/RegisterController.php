@@ -17,7 +17,7 @@ class RegisterController extends Controller
         $request->validate([
             'profile_picture' => 'required',
             'username' => 'required',
-            'birth_date' => '',
+            'birth_date' => 'date|before:14 years ago',
             'email' => 'required',
             'country' => 'required',
             'facebook_url' => 'required',
