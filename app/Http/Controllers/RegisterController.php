@@ -20,8 +20,8 @@ class RegisterController extends Controller
             'birth_date' => 'date|before:14 years ago',
             'email' => 'required',
             'country' => 'required|string',
-            'facebook_url' => 'required',
-            'twitter_url' => 'required',
+            'facebook_url' => 'required_without:twitter_url',
+            'twitter_url' => 'required_without:facebook_url',
             'password' => 'required',
             'password_confirmation' => 'required',
         ]);
