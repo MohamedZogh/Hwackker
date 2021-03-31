@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\ReCaptchaRule;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller

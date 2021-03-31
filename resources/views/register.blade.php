@@ -63,6 +63,7 @@
                     <input id="password" name="password_confirmation" type="password" required class="rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Password confirmation">
                 </div>
                 @csrf
+                <input type="hidden" name="recaptcha_token" id="recaptcha_token">
             </div>
             <div>
                 <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -72,4 +73,12 @@
         </form>
     </div>
 </div>
+<script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_CAPTCHA_PUBLIC_KEY') }}"></script>
+
+<script>
+grecaptcha.ready(function() {
+  grecaptcha.execute("{{ env('GOOGLE_CAPTCHA_PUBLIC_KEY') }}").then(function(token) {
+   document.getElementById("recaptcha_token").value = token;
+ }); });
+</script>
 @endsection
