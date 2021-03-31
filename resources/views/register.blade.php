@@ -18,7 +18,7 @@
                 </ul>
             @endif
 
-            <form class="mt-8 space-y-6" action="{{ route('register') }}" method="POST">
+            <form class="mt-8 space-y-6" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                 <div class="rounded-md shadow-sm">
                     <div class="mb-4">
                         <label for="profile_picture" class="">Profile picture</label>
@@ -48,11 +48,11 @@
                     </div>
                     <div class="mb-4">
                         <label for="facebook_url" class="sr-only">Facebook url</label>
-                        <input id="facebook_url" name="facebook_url" required value="{{ old('facebook_url') }}" class="rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Facebook url">
+                        <input id="facebook_url" name="facebook_url" value="{{ old('facebook_url') }}" class="rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Facebook url">
                     </div>
                     <div class="mb-4">
                         <label for="twitter_url" class="sr-only">Twitter url</label>
-                        <input id="twitter_url" name="twitter_url" required value="{{ old('twitter_url') }}" class="rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Twitter url">
+                        <input id="twitter_url" name="twitter_url" value="{{ old('twitter_url') }}" class="rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Twitter url">
                     </div>
                     <div class="mb-4">
                         <label for="password" class="sr-only">Password</label>

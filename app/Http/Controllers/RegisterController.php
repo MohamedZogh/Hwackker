@@ -25,14 +25,13 @@ class RegisterController extends Controller
             'password' => 'required',
             'password_confirmation' => 'required',
         ]);
+        dd($request->file('profile_picture'));
+        $request->file('profile_picture')->store('secure');
+        $user = User::forceCreate($request->except('_token', 'password_confirmation'));
 
-        if (!$validated->fails()) {
-            $user = User::forceCreate($request->except('_token', 'password_confirmation'));
+        auth()->loginUsingId($user->id);
 
-            auth()->loginUsingId($user->id);
-
-            return redirect()->route('user', ['username' => $user->username]);
-        }
+        return redirect()->route('user', ['username' => $user->username]);
 
     }
 }
