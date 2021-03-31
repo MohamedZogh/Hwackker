@@ -39,6 +39,6 @@ class RegisterController extends Controller
 
         auth()->loginUsingId($user->id);
 
-        return redirect()->route('user', ['username' => $user->username]);
+        return redirect()->route('user');
     }
 }

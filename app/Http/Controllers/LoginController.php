@@ -27,10 +27,10 @@ class LoginController extends Controller
             if ($hashedPwd) {
                 auth()->loginUsingId($user->id);
 
-                return redirect()->route('user', ['username' => $user->username]);
+                return redirect()->route('user');
             } else {
                 return back()->withErrors([
-                    'message' => 'Your password is incorrect.'
+                    'message' => 'Your username or password is incorrect.'
                 ]);
             }
         } else {
