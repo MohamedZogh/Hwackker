@@ -11,12 +11,13 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
+        $request->has('search') ? $search = $request->get('search'): $search = "";
         if ($request->has('username')) {
             $user = User::all()->where('username', $request->get('username'))->first();
             if ($user['is_admin'] && $request->has('private') && $request->get('private') === 'true') {
-                $hwacks = Hwack::where('user_id', $user->id)->latest()->simplePaginate(100);
+                $hwacks = Hwack::where('user_id', $user->id)->where('content', 'LIKE', "%$search%")->latest()->simplePaginate(100);
             } else {
-                $hwacks = Hwack::where('user_id', $user->id, 'private', false)->latest()->simplePaginate(100);
+                $hwacks = Hwack::where('user_id', $user->id, 'private', false)->where('content', 'LIKE', "%$search%")->latest()->simplePaginate(100);
             }
             return view('user', [
                 'user' => $user,
@@ -26,9 +27,9 @@ class UserController extends Controller
 
         $user = auth()->user();
         if ($user['is_admin'] && $request->has('private') && $request->get('private') === 'true') {
-            $hwacks = Hwack::latest()->simplePaginate(100);
+            $hwacks = Hwack::where( 'content', 'LIKE', "%$search%")->latest()->simplePaginate(100);
         } else {
-            $hwacks = Hwack::where('private', false)->latest()->simplePaginate(100);
+            $hwacks = Hwack::where('private', false)->where( 'content', 'LIKE', "%$search%")->latest()->simplePaginate(100);
         }
         return view('user', [
             'user' => $user,
