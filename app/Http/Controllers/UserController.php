@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hwack;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -36,6 +37,10 @@ class UserController extends Controller
 
         $hwackData = $request->all();
         if ($request->hasFile('image')) {
+            $hwackPath = Storage::disk('public')->path('') . "hwack";
+            if (!file_exists($hwackPath)){
+                mkdir($hwackPath, 0777, true);
+            }
             $request->file('image')->store('public/hwack');
             $hashName = $request->file('image')->hashName();
             $fileUrl = url("storage/hwack/$hashName");
