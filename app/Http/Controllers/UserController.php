@@ -21,22 +21,35 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        if (!$user) {
-            return redirect()->route('home');
-        }
-
         return view('user', [
             'user' => $user,
-            'hwacks' => Hwack::limit(500)->get()->sortByDesc('created_at'),
+            'hwacks' => Hwack::limit(5)->get()->sortByDesc('created_at'),
         ]);
     }
 
     public function createHwack(Request $request)
     {
+        $request->validate([
+            'image' => 'image|mimes:jpeg,jpg,png,webp,gif',
+            'content' => 'required|max:500',
+        ]);
+
+        $hwackData = $request->all();
+        if ($request->hasFile('image')) {
+            $request->file('image')->store('public/hwack');
+            $hashName = $request->file('image')->hashName();
+            $fileUrl = url("storage/hwack/$hashName");
+            $hwackData['image'] = $fileUrl;
+        }
+        if (array_key_exists('private', $hwackData)) {
+            $hwackData['private'] = true;
+        }
+        unset($hwackData['_token']);
+
         $user = User::find($request->get('user_id'));
 
-        Hwack::forceCreate($request->except('_token'));
+        Hwack::forceCreate($hwackData);
 
-        return redirect()->route('user', ['username' => $user->userame]);
+        return redirect()->route('user', ['username' => $user->username]);
     }
 }

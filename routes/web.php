@@ -28,6 +28,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-Route::get('/user', [UserController::class, 'index'])->name('user');
-
-Route::post('/user/hwack', [UserController::class, 'createHwack'])->name('user.hwack');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::post('/user/hwack', [UserController::class, 'createHwack'])->name('user.hwack');
+});

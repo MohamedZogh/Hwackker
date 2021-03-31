@@ -15,7 +15,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'profile_picture' => 'required|image|mimes:jpeg,jpg,png,bmp,gif,svg|max:2048',
+            'profile_picture' => 'required|image|mimes:jpeg,jpg,png,webp,gif',
             'username' => 'required|string|min:2|max:12',
             'birth_date' => 'date|before:14 years ago',
             'email' => 'required',
@@ -39,6 +39,6 @@ class RegisterController extends Controller
 
         auth()->loginUsingId($user->id);
 
-        return redirect()->route('user', ['username' => $user->username]);
+        return redirect()->route('user');
     }
 }
