@@ -12,6 +12,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .vscode/
-/docker/*
+/docker
 docker-compose.yaml
+docker-compose.yml
 cmd.md
