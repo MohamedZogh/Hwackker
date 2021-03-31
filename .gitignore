@@ -3,3 +3,4 @@
 .env
 /docker/*
 docker-compose.yaml
+cmd.md
