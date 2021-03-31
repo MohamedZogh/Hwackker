@@ -19,4 +19,9 @@ Run the PHP server:
 php artisan serve
 ```
 
-Make it fast and secure!
+Associer les path public et storage:
+
+```
+php artisan storage:link
+```
+

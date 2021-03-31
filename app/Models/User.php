@@ -25,4 +25,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Hwack::class);
     }
+
+    /**
+     * Hash the password on save/update.
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }
