@@ -23,6 +23,7 @@ class RegisterController extends Controller
             'facebook_url' => 'required_without:twitter_url',
             'twitter_url' => 'required_without:facebook_url',
             'password' => 'required|confirmed',
+            'recaptcha_token' => 'required'
         ]);
 
         $request->file('profile_picture')->store('public');
