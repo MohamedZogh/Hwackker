@@ -15,14 +15,12 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-
-
         $user = User::where([
             'username' => $request->get('username'),
             // 'password' => $request->get('password'),
         ])->first();
-        if ($user) {
 
+        if ($user) {
             $hashedPwd = Hash::check($request->get('password'), $user->password);
             if ($hashedPwd) {
                 auth()->loginUsingId($user->id);
