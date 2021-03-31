@@ -15,7 +15,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'profile_picture' => 'required|mimes:jpg,png,gif,webp',
+            'profile_picture' => 'required|image|mimes:jpeg,jpg,png,bmp,gif,svg|max:2048',
             'username' => 'required|string|min:2|max:12',
             'birth_date' => 'date|before:14 years ago',
             'email' => 'required',
@@ -26,13 +26,11 @@ class RegisterController extends Controller
             'password_confirmation' => 'required',
         ]);
 
-        if (!$validated->fails()) {
-            $user = User::forceCreate($request->except('_token', 'password_confirmation'));
 
-            auth()->loginUsingId($user->id);
+        $user = User::forceCreate($request->except('_token', 'password_confirmation'));
 
-            return redirect()->route('user', ['username' => $user->username]);
-        }
+        auth()->loginUsingId($user->id);
 
+        return redirect()->route('user', ['username' => $user->username]);
     }
 }
