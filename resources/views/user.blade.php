@@ -48,64 +48,68 @@
 
             <div class="bg-white rounded-lg shadow mb-8">
                 @foreach($hwacks as $hwack)
-                <div class="px-6 py-5 border-b border-gray-200 last:border-none">
-                    <div class="flex w-full">
-                        <div class="flex-shrink-0 mr-5">
-                            <div class="cursor-pointer font-bold w-12 h-12 bg-gray-300 flex items-center justify-center rounded-full overflow-hidden">
-                                <img src="{{ $user->profile_picture }}" alt="avatar">
+                @if($hwack->private)
+                <div class="px-6 py-5 border-b bg-red-100 last:border-none">
+                    @else
+                    <div class="px-6 py-5 border-b border-gray-200 last:border-none">
+                        @endif
+                        <div class="flex w-full">
+                            <div class="flex-shrink-0 mr-5">
+                                <div class="cursor-pointer font-bold w-12 h-12 bg-gray-300 flex items-center justify-center rounded-full overflow-hidden">
+                                    <img src="{{ $user->profile_picture }}" alt="avatar">
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-1">
-                            <div>
-                                <a href="/user?username={{ $hwack->user->username }}" class="text-gray-600 font-bold">{{ '@' . $hwack->user->username }}</a>
-                                <span class="mx-1 text-gray-500">&bull;</span>
-                                <span class="text-gray-600">{{ $hwack->created_at->diffForHumans() }}</span>
-                            </div>
+                            <div class="flex-1">
+                                <div>
+                                    <a href="/user?username={{ $hwack->user->username }}" class="text-gray-600 font-bold">{{ '@' . $hwack->user->username }}</a>
+                                    <span class="mx-1 text-gray-500">&bull;</span>
+                                    <span class="text-gray-600">{{ $hwack->created_at->diffForHumans() }}</span>
+                                </div>
 
-                            <div class="mb-4">
-                                <p class="text-gray-700">{!! $hwack->content !!}</p>
-                            </div>
+                                <div class="mb-4">
+                                    <p class="text-gray-700">{!! $hwack->content !!}</p>
+                                </div>
 
-                            @if($hwack->image)
-                            <div class="relative w-auto mb-2 border rounded-lg relative bg-gray-100 mb-4 shadow-inset overflow-hidden">
-                                <img src="{{ $hwack->image }}" alt="Hwack image">
+                                @if($hwack->image)
+                                <div class="relative w-auto mb-2 border rounded-lg relative bg-gray-100 mb-4 shadow-inset overflow-hidden">
+                                    <img src="{{ $hwack->image }}" alt="Hwack image">
+                                </div>
+                                @endif
                             </div>
-                            @endif
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
-            {!! $hwacks->links() !!}
-        </div>
-
-        <div class="w-2/3 px-4">
-            <div class="bg-white rounded-lg shadow mb-8">
-                <div class="px-6 py-3 border-b border-gray-200">
-                    <div class="font-bold text-gray-800">Following</div>
-                </div>
-
-                <div>
-                    {{-- @TODO --}}
-                </div>
+                {!! $hwacks->links() !!}
             </div>
 
-            <div class="bg-white rounded-lg shadow mb-8">
-                <div class="px-6 py-3 border-b border-gray-200">
-                    <div class="font-bold text-gray-800">Who to follow</div>
+            <div class="w-2/3 px-4">
+                <div class="bg-white rounded-lg shadow mb-8">
+                    <div class="px-6 py-3 border-b border-gray-200">
+                        <div class="font-bold text-gray-800">Following</div>
+                    </div>
+
+                    <div>
+                        {{-- @TODO --}}
+                    </div>
                 </div>
 
-                <div>
-                    {{-- @TODO --}}
+                <div class="bg-white rounded-lg shadow mb-8">
+                    <div class="px-6 py-3 border-b border-gray-200">
+                        <div class="font-bold text-gray-800">Who to follow</div>
+                    </div>
+
+                    <div>
+                        {{-- @TODO --}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    new SimpleMDE({
-        element: document.getElementById("hwack_editor")
-    });
-</script>
-@endsection
+    <script>
+        new SimpleMDE({
+            element: document.getElementById("hwack_editor")
+        });
+    </script>
+    @endsection
