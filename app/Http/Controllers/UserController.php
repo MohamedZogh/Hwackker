@@ -29,6 +29,12 @@ class UserController extends Controller
 
     public function createHwack(Request $request)
     {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,jpg,png,webp,gif',
+            'content' => 'required|string|max:500',
+            'private' => 'required',
+        ]);
+
         $user = User::find($request->get('user_id'));
 
         Hwack::forceCreate($request->except('_token'));
