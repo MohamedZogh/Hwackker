@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('profile_picture');
             $table->date('birth_date')->nullable();
             $table->string('country');
-            $table->string('facebook_url');
-            $table->string('twitter_url');
+            $table->string('facebook_url')->nullable();
+            $table->string('twitter_url')->nullable();
             $table->string('email');
             $table->string('password');
             $table->timestamps();
