@@ -2,6 +2,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/app/public/*
+!/storage/app/public/hwack
 /vendor
 .env
 .env.backup
@@ -11,6 +13,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+hwackker.sqlite
 .vscode/
 /docker
 docker-compose.yaml
