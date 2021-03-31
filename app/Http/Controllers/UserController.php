@@ -12,18 +12,18 @@ class UserController extends Controller
     {
         if ($request->has('username')) {
             $user = User::all()->where('username', $request->get('username'))->first();
-
+            $hwacks = Hwack::where('user_id', $user->id, 'private', false)->latest()->simplePaginate(100);
             return view('user', [
                 'user' => $user,
-                'hwacks' => Hwack::where('user_id', $user->id)->get()->sortByDesc('created_at'),
+                'hwacks' => $hwacks,
             ]);
         }
 
         $user = auth()->user();
-
+        $hwacks = Hwack::where('private', false)->latest()->simplePaginate(100);
         return view('user', [
             'user' => $user,
-            'hwacks' => Hwack::limit(500)->get()->sortByDesc('created_at'),
+            'hwacks' => $hwacks,
         ]);
     }
 
