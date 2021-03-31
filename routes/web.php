@@ -21,13 +21,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [LoginController::class, 'show'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->middleware("throttle:3,1");
 
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-Route::get('/user', [UserController::class, 'index'])->name('user');
-
 Route::post('/user/hwack', [UserController::class, 'createHwack'])->name('user.hwack');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+});

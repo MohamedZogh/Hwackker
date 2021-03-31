@@ -21,10 +21,6 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        if (!$user) {
-            return redirect()->route('home');
-        }
-
         return view('user', [
             'user' => $user,
             'hwacks' => Hwack::limit(500)->get()->sortByDesc('created_at'),
