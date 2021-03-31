@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -14,7 +15,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'profile_picture' => 'required|mimes:jpg,png,gif,webp',
             'username' => 'required|string|min:2|max:12',
             'birth_date' => 'date|before:14 years ago',
@@ -22,12 +23,17 @@ class RegisterController extends Controller
             'country' => 'required|string',
             'facebook_url' => 'required_without:twitter_url',
             'twitter_url' => 'required_without:facebook_url',
-            'password' => 'required',
-            'password_confirmation' => 'required',
+            'password' => 'required|confirmed',
         ]);
-        dd($request->file('profile_picture'));
-        $request->file('profile_picture')->store('secure');
-        $user = User::forceCreate($request->except('_token', 'password_confirmation'));
+
+        $request->file('profile_picture')->store('public');
+        $hashName = $request->file('profile_picture')->hashName();
+        $fileUrl = url("storage/$hashName");
+        $userData = $request->all();
+        $userData['profile_picture'] = $fileUrl;
+        unset($userData['_token']);
+        unset($userData['password_confirmation']);
+        $user = User::forceCreate($userData);
 
         auth()->loginUsingId($user->id);
 
