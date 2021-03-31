@@ -14,7 +14,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'profile_picture' => 'required|image|mimes:jpeg,jpg,png,bmp,gif,svg|max:2048',
             'username' => 'required|string|min:2|max:12',
             'birth_date' => 'date|before:14 years ago',
@@ -33,10 +33,9 @@ class RegisterController extends Controller
         $userData['profile_picture'] = $fileUrl;
         unset($userData['_token']);
         unset($userData['password_confirmation']);
+        unset($userData['recaptcha_token']);
+
         $user = User::forceCreate($userData);
-
-
-        $user = User::forceCreate($request->except('_token', 'password_confirmation'));
 
         auth()->loginUsingId($user->id);
 
