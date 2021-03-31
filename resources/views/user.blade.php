@@ -24,12 +24,12 @@
     <div class="container mx-auto px-4 py-10">
         <div class="md:flex -mx-4">
             <div class="w-2/4 px-4">
-                <form class="bg-white rounded-lg shadow px-4 py-4 mb-8" action="{{ route('user.hwack') }}" method="POST">
+                <form class="bg-white rounded-lg shadow px-4 py-4 mb-8" action="{{ route('user.hwack') }}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="user_id" value="{{ $user->id }}">
 
-                    <textarea name="content" id="hwack_editor" class="mb-2 bg-gray-100 focus:outline-none focus:shadow-outline border border-transparent rounded-lg py-2 px-4 block w-full appearance-none leading-normal placeholder-gray-700" rows="3" placeholder="What's happening..."></textarea>
+                    <textarea name="content" required id="hwack_editor" class="mb-2 bg-gray-100 focus:outline-none focus:shadow-outline border border-transparent rounded-lg py-2 px-4 block w-full appearance-none leading-normal placeholder-gray-700" rows="3" placeholder="What's happening..."></textarea>
 
-                    <input multiple name="image" id="image" class="" type="file">
+                    <input multiple name="image" id="image" class="" type="file" accept="image/png, image/jpeg, image/webp, image/jpg, image/bmp,image/gif, image/svg">
 
                     <br>
 
