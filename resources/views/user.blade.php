@@ -72,7 +72,7 @@
 
                                 @if($hwack->image)
                                 <div class="relative w-auto mb-2 border rounded-lg relative bg-gray-100 mb-4 shadow-inset overflow-hidden">
-                                    <img src="{{ $hwack->image }}" alt="Hwack image">
+                                    <img class="bttrlazyloading" data-bttrlazyloading-lg-src="{{ $hwack->image }}" alt="Hwack image">
                                 </div>
                                 @endif
                             </div>
