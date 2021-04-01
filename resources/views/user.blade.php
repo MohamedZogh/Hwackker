@@ -85,12 +85,25 @@
 
             <div class="w-2/3 px-4">
                 <div class="bg-white rounded-lg shadow mb-8">
+                    @if($displayButton)
+                        <div class="px-6 py-3 border-b border-gray-200">
+                            <div class="font-bold text-gray-800">
+                                <button id="follow" data="{{ $user->id }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Follow
+                                </button>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                <div class="bg-white rounded-lg shadow mb-8">
                     <div class="px-6 py-3 border-b border-gray-200">
-                        <div class="font-bold text-gray-800">Following</div>
+                        <div class="font-bold text-gray-800">Qui me suis ?</div>
                     </div>
 
                     <div>
-                        {{-- @TODO --}}
+                        @foreach($usersFollowed as $userFollowed)
+                            <p>{{ $userFollowed }}</p>
+                        @endforeach
                     </div>
                 </div>
 
@@ -106,10 +119,21 @@
             </div>
         </div>
     </div>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         new SimpleMDE({
             element: document.getElementById("hwack_editor")
         });
+
+        document.getElementById('follow').addEventListener('click', async function(){
+            const response = await axios.post(
+                '{{ route('follow') }}',
+                {
+                    followed_id: '{{ $user->id }}'
+                }
+            )
+            console.log(response.data);
+        });
+
     </script>
     @endsection
