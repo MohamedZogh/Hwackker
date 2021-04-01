@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,5 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::post('/user/hwack', [UserController::class, 'createHwack'])->name('user.hwack');
+    Route::post('/user/follow', [FollowersController::class, 'follow'])->name('follow');
 });
