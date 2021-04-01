@@ -15,24 +15,21 @@ class UserController extends Controller
         if ($request->has('username')) {
             $user = User::all()->where('username', $request->get('username'))->first();
             if ($user['is_admin'] && $request->has('private') && $request->get('private') === 'true') {
-                $hwacks = Hwack::where([['user_id', '=', $user->id], ['content', 'LIKE', "%$search%"]])->latest()->simplePaginate(100);
+                $conditions = [['user_id', '=', $user->id], ['content', 'LIKE', "%$search%"]];
             } else {
-//                $hwacks = Hwack::where('user_id', $user->id, 'private', false)->where('content', 'LIKE', "%$search%")->latest()->simplePaginate(100);
-                $hwacks = Hwack::where([['user_id', '=', $user->id], ['private', '=', false], ['content', 'LIKE', "%$search%"]])->latest()->simplePaginate(100);
+                $conditions = [['user_id', '=', $user->id], ['private', '=', false], ['content', 'LIKE', "%$search%"]];
             }
-            return view('user', [
-                'user' => $user,
-                'hwacks' => $hwacks,
-            ]);
         }
-
-        $user = auth()->user();
-        if ($user['is_admin'] && $request->has('private') && $request->get('private') === 'true') {
-            $hwacks = Hwack::where( 'content', 'LIKE', "%$search%")->latest()->simplePaginate(100);
-        } else {
-            $hwacks = Hwack::where([ ['private', '=', false], ['content', 'LIKE', "%$search%"]])->latest()->simplePaginate(100);
-
+        else{
+            $user = auth()->user();
+            if ($user['is_admin'] && $request->has('private') && $request->get('private') === 'true') {
+                $conditions = [['content', 'LIKE', "%$search%"]];
+            } else {
+                $conditions = [['private', '=', false], ['content', 'LIKE', "%$search%"]];
+            }
         }
+        $hwacks = Hwack::where($conditions)->latest()->simplePaginate(100);
+
         return view('user', [
             'user' => $user,
             'hwacks' => $hwacks,
